@@ -1,0 +1,62 @@
+'use client';
+
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+
+interface TextEditorPlaceholderProps {
+  /** Current content */
+  value: string;
+  /** Change handler */
+  onChange: (value: string) => void;
+  /** Field label */
+  label?: string;
+  /** Help text */
+  help?: string;
+  /** Placeholder text */
+  placeholder?: string;
+  /** Number of rows */
+  rows?: number;
+  /** Disabled state */
+  disabled?: boolean;
+}
+
+/**
+ * Placeholder component for rich text editing.
+ * Will be replaced with Tiptap editor in Task 6.5.
+ * Currently shows a textarea for basic HTML/markdown input.
+ */
+export function TextEditorPlaceholder({
+  value,
+  onChange,
+  label = 'Content',
+  help,
+  placeholder = 'Enter your content here...',
+  rows = 6,
+  disabled = false,
+}: TextEditorPlaceholderProps) {
+  return (
+    <div className="space-y-2">
+      {label && (
+        <Label className="text-sm font-medium">
+          {label}
+        </Label>
+      )}
+      <Textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        rows={rows}
+        disabled={disabled}
+        className="font-mono text-xs"
+      />
+      {help && (
+        <p className="text-xs text-muted-foreground">
+          {help}
+        </p>
+      )}
+      <p className="text-xs text-amber-600 dark:text-amber-400">
+        💡 Note: Rich text editor will be available in the next update. HTML tags are supported.
+      </p>
+    </div>
+  );
+}
